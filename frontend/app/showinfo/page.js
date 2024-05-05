@@ -18,7 +18,7 @@ const Page = () => {
 
   const datafromdB = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/users');
+      const res = await axios.get(process.env.NEXT_PUBLIC_ADDUSERURI);
       const data = res.data.map((item) => item.username);
       const payment=res.data.map((item)=>item.salary);
       setEmployees(data);

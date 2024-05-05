@@ -17,7 +17,7 @@ const Page = ({ searchParams }) => {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/users/${searchParams.id}`,
+        `${process.env.ADDUSERURI}/${searchParams.id}`,
         {
           username: username,
           salary: salary,

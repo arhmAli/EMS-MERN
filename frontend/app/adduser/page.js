@@ -16,7 +16,7 @@ const Page = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/users", {
+            const res = await axios.post(process.env.NEXT_PUBLIC_ADDUSERURI, {
                 username: name,
                 salary: parseFloat(salary),
                 role: role

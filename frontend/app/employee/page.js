@@ -8,7 +8,7 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/users");
+      const res = await axios.get(process.env.NEXT_PUBLIC_ADDUSERURI);
       setEmployees(res.data);
       setLoading(false);
     } catch (e) {
@@ -23,7 +23,7 @@ const Page = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_ADDUSERURI}/${id}`);
       setEmployees(employees.filter((employee) => employee._id !== id));
     } catch (e) {
       console.log("Error occurred while removing employee", e);
