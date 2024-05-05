@@ -17,7 +17,7 @@ const Page = ({ searchParams }) => {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `${process.env.ADDUSERURI}/${searchParams.id}`,
+        `https://backend-nu-murex.vercel.app/users/${searchParams.id}`,
         {
           username: username,
           salary: salary,
