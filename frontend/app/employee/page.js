@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import '../sign.css'
 const Page = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage,setCurrentPage]=useState(1)
 
   const fetchData = async () => {
     try {
@@ -29,6 +31,13 @@ const Page = () => {
       console.log("Error occurred while removing employee", e);
     }
   };
+const indexOfFirstItem = (currentPage-1) * 3;
+const indexOfLastItem = currentPage * 3;
+const currentEmployee=employees.slice(indexOfFirstItem, indexOfLastItem);
+
+const paginate=(pagenumber)=>{
+  return setCurrentPage(pagenumber)
+}
 
   return (
     <div className="container mx-auto">
@@ -37,6 +46,7 @@ const Page = () => {
       {loading ? (
         <h2>Loading...</h2>
       ) : employees.length > 0 ? (
+        <>
         <table className="min-w-full">
           <thead>
             <tr>
@@ -47,7 +57,7 @@ const Page = () => {
             </tr>
           </thead>
           <tbody>
-            {employees.map((item, ind) => (
+            {currentEmployee.map((item, ind) => (
               <tr key={item._id}>
                 <td className="border px-4 py-2">{item.username}</td>
                 <td className="border px-4 py-2">{item.salary}</td>
@@ -79,6 +89,12 @@ const Page = () => {
             ))}
           </tbody>
         </table>
+        <div className="ml-100 btn ">
+        {[...Array(Math.ceil(employees.length / 3)).keys()].map((pageNumber) => (
+                            <span  key={pageNumber} onClick={() => paginate(pageNumber + 1)} className="cursor-pointer mx-1 bg-blue-400 rounded-md px-2 py-1">{pageNumber + 1}</span>
+                        ))}
+      </div>
+      </>
       ) : (
         <h2>No employees found.</h2>
       )}
